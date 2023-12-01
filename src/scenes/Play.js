@@ -26,11 +26,16 @@ class Play extends Phaser.Scene{
     }
 
     create(){
+        this.input.mouse.disableContextMenu();
         this.bg = this.add.tileSprite(0, 0, 1280, 720, 'bg').setOrigin(0, 0);
         this.feed = this.add.circle(1000, 650, 30, 0x6666ff);
         this.play = this.add.circle(1070, 650, 30, 0x9966ff);
         this.shop = this.add.circle(1140, 650, 30, 0x9966ff);
         this.work = this.add.circle(1210, 650, 30, 0x9966ff);
+        this.box1 = this.add.rectangle(1000, 679, 20, 25, 0xffffff);
+        this.box1 = this.add.rectangle(1070, 679, 20, 25, 0xffffff);
+        this.box1 = this.add.rectangle(1140, 679, 20, 25, 0xffffff);
+        this.box1 = this.add.rectangle(1210, 679, 20, 25, 0xffffff);
         this.menu = new gameMenu(this, 0, 0);
         this.menu.hideMenu();
         this.menu.visible = false;
@@ -58,7 +63,7 @@ class Play extends Phaser.Scene{
             fontFamily: 'monospace',
             fontSize: '28px',
             color: '#000000',
-            align: 'right',
+            align: 'center',
             padding: {
                 top: 5, 
                 bottom: 5,
@@ -67,6 +72,10 @@ class Play extends Phaser.Scene{
         }
 
         this.coins = this.add.text(1150, 10, this.money, scoreConfig);
+        this.key1 = this.add.text(950, 660, "F", scoreConfig);
+        this.key1 = this.add.text(1020, 660, "P", scoreConfig);
+        this.key1 = this.add.text(1090, 660, "S", scoreConfig);
+        this.key1 = this.add.text(1160, 660, "W", scoreConfig);
     }
     update(){
         if(this.menu.visible == true && Phaser.Input.Keyboard.JustDown(keyF)){
