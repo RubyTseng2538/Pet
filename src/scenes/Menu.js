@@ -4,6 +4,8 @@ class Menu extends Phaser.Scene{
     }
     preload(){
         this.load.image('bg', './assets/background.jpg');
+        this.load.image('base', './assets/menubase.png');
+        this.load.image('clickbox', './assets/clickbox.png');
     }
 
     create(){
@@ -19,7 +21,6 @@ class Menu extends Phaser.Scene{
             fixedWidth: 0
         }
         this.bg = this.add.tileSprite(0, 0, 1280, 720, 'bg').setOrigin(0, 0);
-        this.add.text(game.config.width/2, game.config.height/2+100, 'Use ↑↓ arrows to control the shrimp', menuConfig).setOrigin(0.5);
         this.add.text(game.config.width/2, game.config.height/2 + borderUISize+borderPadding+100, 'Press P to start', menuConfig).setOrigin(0.5);
         keyP = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.P);
     }
