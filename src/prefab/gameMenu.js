@@ -6,6 +6,9 @@ class gameMenu extends Phaser.GameObjects.Sprite{
         this.rect2 = scene.add.image(game.config.width/2-350, game.config.height/2 +150, 'clickbox');
         this.rect3 = scene.add.image(game.config.width/2, game.config.height/2 +150, 'clickbox');
         this.rect4 = scene.add.image(game.config.width/2+350, game.config.height/2 +150, 'clickbox');
+        this.button1 = scene.add.image(game.config.width/2-350, game.config.height/2 +200, 'button');
+        this.button2 = scene.add.image(game.config.width/2, game.config.height/2 +200, 'button');
+        this.button3 = scene.add.image(game.config.width/2+350, game.config.height/2 +200, 'button');
         this.rect5 = scene.add.rectangle(game.config.width/2-500, game.config.height/2-25, 100, 50, 0xd7bc9f);
         this.Xtext = 300;
         this.Ytext = 100;
@@ -85,6 +88,9 @@ class gameMenu extends Phaser.GameObjects.Sprite{
         this.rect3.visible = true;
         this.rect4.visible = true;
         this.rect5.visible = true;
+        this.button1.visible = true;
+        this.button2.visible = true;
+        this.button3.visible = true;
         this.name.visible = false;
     }
     hideMenu(){
@@ -93,6 +99,9 @@ class gameMenu extends Phaser.GameObjects.Sprite{
         this.rect3.visible = false;
         this.rect4.visible = false;
         this.rect5.visible = false;
+        this.button1.visible = false;
+        this.button2.visible = false;
+        this.button3.visible = false;
         this.msg.visible = false;
         this.name.visible = false;
         this.msg2.visible = false;

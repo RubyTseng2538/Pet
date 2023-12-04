@@ -28,14 +28,14 @@ class Play extends Phaser.Scene{
     create(){
         this.input.mouse.disableContextMenu();
         this.bg = this.add.tileSprite(0, 0, 1280, 720, 'bg').setOrigin(0, 0);
-        this.feed = this.add.circle(1000, 650, 30, 0x6666ff);
-        this.play = this.add.circle(1070, 650, 30, 0x9966ff);
-        this.shop = this.add.circle(1140, 650, 30, 0x9966ff);
-        this.work = this.add.circle(1210, 650, 30, 0x9966ff);
-        this.box1 = this.add.rectangle(1000, 679, 20, 25, 0xffffff);
-        this.box1 = this.add.rectangle(1070, 679, 20, 25, 0xffffff);
-        this.box1 = this.add.rectangle(1140, 679, 20, 25, 0xffffff);
-        this.box1 = this.add.rectangle(1210, 679, 20, 25, 0xffffff);
+        this.feed = this.add.image(1000, 650, 'circlebutton');
+        this.play = this.add.image(1070, 650, 'circlebutton');
+        this.shop = this.add.image(1140, 650, 'circlebutton');
+        this.work = this.add.image(1210, 650, 'circlebutton');
+        this.box1 = this.add.rectangle(1000, 682, 20, 25, 0xd7bc9f);
+        this.box1 = this.add.rectangle(1070, 682, 20, 25, 0xd7bc9f);
+        this.box1 = this.add.rectangle(1140, 682, 20, 25, 0xd7bc9f);
+        this.box1 = this.add.rectangle(1210, 682, 20, 25, 0xd7bc9f);
         this.menu = new gameMenu(this, 0, 0);
         this.menu.hideMenu();
         this.menu.visible = false;
@@ -73,12 +73,23 @@ class Play extends Phaser.Scene{
             },
             fixedWidth: 100
         }
+        let letterConfig= {
+            fontFamily: 'Georgia',
+            fontSize: '20px',
+            color: '#51391f',
+            align: 'center',
+            padding: {
+                top: 5, 
+                bottom: 5,
+            },
+            fixedWidth: 100
+        }
 
         this.coins = this.add.text(1150, 10, this.money, scoreConfig);
-        this.key1 = this.add.text(950, 660, "F", scoreConfig);
-        this.key1 = this.add.text(1020, 660, "P", scoreConfig);
-        this.key1 = this.add.text(1090, 660, "S", scoreConfig);
-        this.key1 = this.add.text(1160, 660, "W", scoreConfig);
+        this.key1 = this.add.text(950, 667, "F", letterConfig);
+        this.key1 = this.add.text(1020, 667, "P", letterConfig);
+        this.key1 = this.add.text(1090, 667, "S", letterConfig);
+        this.key1 = this.add.text(1160, 667, "W", letterConfig);
     }
     update(){
         if(this.menu.visible == true && Phaser.Input.Keyboard.JustDown(keyF)){
