@@ -36,6 +36,7 @@ class Play extends Phaser.Scene{
         this.box1 = this.add.rectangle(1070, 682, 20, 25, 0xd7bc9f);
         this.box1 = this.add.rectangle(1140, 682, 20, 25, 0xd7bc9f);
         this.box1 = this.add.rectangle(1210, 682, 20, 25, 0xd7bc9f);
+        this.coinbox = this.add.image(1200, 30, 'coinbox');
         this.menu = new gameMenu(this, 0, 0);
         this.menu.hideMenu();
         this.menu.visible = false;
@@ -85,7 +86,7 @@ class Play extends Phaser.Scene{
             fixedWidth: 100
         }
 
-        this.coins = this.add.text(1150, 10, this.money, scoreConfig);
+        this.coins = this.add.text(1140, 10, this.money, scoreConfig);
         this.key1 = this.add.text(950, 667, "F", letterConfig);
         this.key1 = this.add.text(1020, 667, "P", letterConfig);
         this.key1 = this.add.text(1090, 667, "S", letterConfig);
