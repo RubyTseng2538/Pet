@@ -14,33 +14,33 @@ class gameMenu extends Phaser.GameObjects.Sprite{
         this.Ytext = 100;
         this.menuName = "";
         this.content = "";
-        this.cur = [];
-        this.msg = scene.make.text({
-            x: this.x -450,
-            y: this.y -30,
-            text: this.content,
-            style: {
-                fontSize: '20px',
-                fontFamily: 'Georgia',
-                fontStyle: '',
-                color: '#ffffff',
-                align: 'left',
-                wordWrap: { width: 900 }
+        let buttonConfig= {
+            fontFamily: 'Georgia',
+            fontSize: '20px',
+            color: '#51391f',
+            align: 'center',
+            padding: {
+                top: 5, 
+                bottom: 5,
             },
-        });
-        this.msg2 = scene.make.text({
-            x: this.x -450,
-            y: this.y -30,
-            text: this.content,
-            style: {
-                fontSize: '20px',
-                fontFamily: 'Georgia',
-                fontStyle: 'bold',
-                color: '#ADD8E6',
-                align: 'left',
-                wordWrap: { width: 900 }
-            },
-        });
+            fixedWidth: 100
+        }
+        this.text1 = scene.add.text(game.config.width/2-400, game.config.height/2 +185, this.content, buttonConfig);
+        this.text2 = scene.add.text(game.config.width/2-50, game.config.height/2 +185, this.content, buttonConfig);
+        this.text3 = scene.add.text(game.config.width/2+300, game.config.height/2 +185, this.content, buttonConfig);
+        // this.msg2 = scene.make.text({
+        //     x: this.x -450,
+        //     y: this.y -30,
+        //     text: this.content,
+        //     style: {
+        //         fontSize: '20px',
+        //         fontFamily: 'Georgia',
+        //         fontStyle: 'bold',
+        //         color: '#ADD8E6',
+        //         align: 'left',
+        //         wordWrap: { width: 900 }
+        //     },
+        // });
         this.name = scene.make.text({
             x: game.config.width/2-530,
             y: game.config.height/2-40,
@@ -64,10 +64,13 @@ class gameMenu extends Phaser.GameObjects.Sprite{
     }
 
     loadText(string){
-        this.msg.visible = true;
-        this.msg.x = this.x - 450;
         this.content = string;
-        this.msg.text = this.content;
+        this.text1.visible = true;
+        this.text1.text = this.content;
+        this.text2.visible = true;
+        this.text2.text = this.content;
+        this.text3.visible = true;
+        this.text3.text = this.content;
         //this.beep.play();
     }
 
@@ -102,8 +105,9 @@ class gameMenu extends Phaser.GameObjects.Sprite{
         this.button1.visible = false;
         this.button2.visible = false;
         this.button3.visible = false;
-        this.msg.visible = false;
+        this.text1.visible = false;
+        this.text2.visible = false;
+        this.text3.visible = false;
         this.name.visible = false;
-        this.msg2.visible = false;
     }
 };

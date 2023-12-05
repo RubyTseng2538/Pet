@@ -63,9 +63,9 @@ class Play extends Phaser.Scene{
         // this.pause = 0;
 
         let scoreConfig = {
-            fontFamily: 'monospace',
+            fontFamily: 'Georgia',
             fontSize: '28px',
-            color: '#000000',
+            color: '#51391f',
             align: 'center',
             padding: {
                 top: 5, 
@@ -100,6 +100,7 @@ class Play extends Phaser.Scene{
             this.menu.showMenu();
             this.menu.visible = true;
             this.menu.loadName("Feed");
+            this.menu.loadText("Feed")
         }
         if(this.menu.visible == true && Phaser.Input.Keyboard.JustDown(keyP)){
             this.menu.hideMenu();
@@ -109,6 +110,7 @@ class Play extends Phaser.Scene{
             this.menu.showMenu();
             this.menu.visible = true;
             this.menu.loadName("Play");
+            this.menu.loadText("Play")
         }
         if(this.menu.visible == true && Phaser.Input.Keyboard.JustDown(keyS)){
             this.menu.hideMenu();
@@ -118,6 +120,7 @@ class Play extends Phaser.Scene{
             this.menu.showMenu();
             this.menu.visible = true;
             this.menu.loadName("Shop");
+            this.menu.loadText("Buy");
         }
         if(this.menu.visible == true && Phaser.Input.Keyboard.JustDown(keyW)){
             this.menu.hideMenu();
@@ -127,6 +130,7 @@ class Play extends Phaser.Scene{
             this.menu.showMenu();
             this.menu.visible = true;
             this.menu.loadName("Work");
+            this.menu.loadText("Work");
         }
         // if(!this.gameOver){
         //     this.bg.tilePositionX -= this.speed;
