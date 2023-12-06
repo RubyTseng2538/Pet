@@ -37,15 +37,20 @@ class Play extends Phaser.Scene{
         this.box1 = this.add.rectangle(1140, 682, 20, 25, 0xd7bc9f);
         this.box1 = this.add.rectangle(1210, 682, 20, 25, 0xd7bc9f);
         this.coinbox = this.add.image(1200, 30, 'coinbox');
-        this.menu = new gameMenu(this, 0, 0);
-        this.menu.hideMenu();
-        this.menu.visible = false;
+        this.foodMenu = new gameMenu(this, 0, 0, [food1, food2, food3]);
+        this.toyMenu = new gameMenu(this, 0, 0, [toy1, toy2, toy3, toy4]);
+        this.shopMenu = new gameMenu(this, 0, 0, [food1, food2, food3, toy2, toy3, toy4, med1, med2]);
+        this.healthMenu = new gameMenu(this, 0, 0, [med1, med2]);
+        this.hideAllMenus();
         
         //add keys
         keyF = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.F);
         keyP = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.P);
         keyS = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
-        keyW = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
+        keyH = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.H);
+        keyLeft = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT);
+        keyRight= this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.RIGHT);
+
         // this.fg = this.add.tileSprite(0, 0, 640, 480, 'fg').setOrigin(0, 0); // seaweed
         // set up animations
         // this.createAnimation();
@@ -55,8 +60,7 @@ class Play extends Phaser.Scene{
         // this.eel = new Eel(this, -100, game.config.height, 'eel').setOrigin(0, 0);
         // this.rod = new Rod(this, -200, -250, 'hook').setOrigin(0, 0);
         // this.bag = new Bag(this, -300, 0, 'bag').setOrigin(0, 0);
-        // keyUp = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.UP);
-        // keyDown = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.DOWN);
+        
         // this.gameOver = false;
         // this.speed = 0.5;
         this.money = 1000;
@@ -90,48 +94,58 @@ class Play extends Phaser.Scene{
         this.key1 = this.add.text(950, 667, "F", letterConfig);
         this.key1 = this.add.text(1020, 667, "P", letterConfig);
         this.key1 = this.add.text(1090, 667, "S", letterConfig);
-        this.key1 = this.add.text(1160, 667, "W", letterConfig);
+        this.key1 = this.add.text(1160, 667, "H", letterConfig);
     }
     update(){
-        if(this.menu.visible == true && Phaser.Input.Keyboard.JustDown(keyF)){
-            this.menu.hideMenu();
-            this.menu.visible = false;
+        if(this.foodMenu.visible == true && Phaser.Input.Keyboard.JustDown(keyF)){
+            this.hideAllMenus();
         }
-        if(this.menu.visible == false && Phaser.Input.Keyboard.JustDown(keyF)){
-            this.menu.showMenu();
-            this.menu.visible = true;
-            this.menu.loadName("Feed");
-            this.menu.loadText("Feed")
+        if(this.foodMenu.visible == false && Phaser.Input.Keyboard.JustDown(keyF)){
+            this.foodMenu.showMenu();
+            this.foodMenu.visible = true;
+            this.foodMenu.loadName("Feed");
+            this.foodMenu.loadText("Feed");
         }
-        if(this.menu.visible == true && Phaser.Input.Keyboard.JustDown(keyP)){
-            this.menu.hideMenu();
-            this.menu.visible = false;
+        if(this.toyMenu.visible == true && Phaser.Input.Keyboard.JustDown(keyP)){
+            this.hideAllMenus();
         }
-        if(this.menu.visible == false && Phaser.Input.Keyboard.JustDown(keyP)){
-            this.menu.showMenu();
-            this.menu.visible = true;
-            this.menu.loadName("Play");
-            this.menu.loadText("Play")
+        if(this.toyMenu.visible == false && Phaser.Input.Keyboard.JustDown(keyP)){
+            this.toyMenu.showMenu();
+            this.toyMenu.visible = true;
+            this.toyMenu.loadName("Play");
+            this.toyMenu.loadText("Play");
         }
-        if(this.menu.visible == true && Phaser.Input.Keyboard.JustDown(keyS)){
-            this.menu.hideMenu();
-            this.menu.visible = false;
+        if(this.shopMenu.visible == true && Phaser.Input.Keyboard.JustDown(keyS)){
+            this.hideAllMenus();
         }
-        if(this.menu.visible == false && Phaser.Input.Keyboard.JustDown(keyS)){
-            this.menu.showMenu();
-            this.menu.visible = true;
-            this.menu.loadName("Shop");
-            this.menu.loadText("Buy");
+        if(this.shopMenu.visible == false && Phaser.Input.Keyboard.JustDown(keyS)){
+            this.shopMenu.showMenu();
+            this.shopMenu.visible = true;
+            this.shopMenu.loadName("Shop");
+            this.shopMenu.loadText("Buy");
         }
-        if(this.menu.visible == true && Phaser.Input.Keyboard.JustDown(keyW)){
-            this.menu.hideMenu();
-            this.menu.visible = false;
+        if(this.healthMenu.visible == true && Phaser.Input.Keyboard.JustDown(keyH)){
+            this.hideAllMenus();
         }
-        if(this.menu.visible == false && Phaser.Input.Keyboard.JustDown(keyW)){
-            this.menu.showMenu();
-            this.menu.visible = true;
-            this.menu.loadName("Work");
-            this.menu.loadText("Work");
+        if(this.healthMenu.visible == false && Phaser.Input.Keyboard.JustDown(keyH)){
+            this.healthMenu.showMenu();
+            this.healthMenu.visible = true;
+            this.healthMenu.loadName("Health");
+            this.healthMenu.loadText("Cure");
+        }
+        if(this.shopMenu.visible == true){
+            if(Phaser.Input.Keyboard.JustDown(keyLeft)){
+                if(this.shopMenu.list.length >= this.shopMenu.index +3){
+                    this.shopMenu.index +=3;
+                    console.log(this.shopMenu.index);
+                }
+            }
+            if(Phaser.Input.Keyboard.JustDown(keyRight)){
+                if(this.shopMenu.index-3 >= 0){
+                    this.shopMenu.index -=3;
+                    console.log(this.shopMenu.index);
+                }
+            }
         }
         // if(!this.gameOver){
         //     this.bg.tilePositionX -= this.speed;
@@ -246,5 +260,15 @@ class Play extends Phaser.Scene{
             frames: this.anims.generateFrameNumbers('shrimpdie', {start: 0, end: 7, first: 0}),
             frameRate: 9
         });
+    }
+    hideAllMenus(){
+        this.foodMenu.hideMenu();
+        this.foodMenu.visible = false;
+        this.toyMenu.hideMenu();
+        this.toyMenu.visible = false;
+        this.shopMenu.hideMenu();
+        this.shopMenu.visible = false;
+        this.healthMenu.hideMenu();
+        this.healthMenu.visible = false;
     }
 }

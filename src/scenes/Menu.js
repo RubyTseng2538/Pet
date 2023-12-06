@@ -9,6 +9,8 @@ class Menu extends Phaser.Scene{
         this.load.image('circlebutton', './assets/button.png');
         this.load.image('button', './assets/button2.png');
         this.load.image('coinbox', './assets/coinbox.png');
+        this.load.image('leftbutton', './assets/rightbutton.png');
+        this.load.image('rightbutton', './assets/leftbutton.png');
     }
 
     create(){

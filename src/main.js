@@ -15,7 +15,7 @@ create the sprites with the goal of making the animals recognizable and a bit re
 */
 
 let config = {
-    type: Phaser.CANVAS,
+    type: Phaser.WEBGL,
     width: 1280,
     height: 720,
     points: 0,
@@ -26,4 +26,13 @@ let game = new Phaser.Game(config);
 
 let borderUISize = game.config.height/15;
 let borderPadding = borderUISize/3;
-let keyP, keyW, keyS, keyF;
+let keyP, keyH, keyS, keyF, keyLeft, keyRight;
+let food1 = 0;
+let food2 = 0;
+let food3 = 0;
+let toy1 = 0;
+let toy2 = 0;
+let toy3 = 0;
+let toy4 = 0;
+let med1 = 0;
+let med2 = 0;
