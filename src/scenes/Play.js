@@ -50,6 +50,9 @@ class Play extends Phaser.Scene{
         keyH = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.H);
         keyLeft = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT);
         keyRight= this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.RIGHT);
+        key1 =  this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ONE);
+        key2 =  this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.TWO);
+        key3 =  this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.THREE);
 
         // this.fg = this.add.tileSprite(0, 0, 640, 480, 'fg').setOrigin(0, 0); // seaweed
         // set up animations
@@ -133,18 +136,61 @@ class Play extends Phaser.Scene{
             this.healthMenu.loadName("Health");
             this.healthMenu.loadText("Cure");
         }
-        if(this.shopMenu.visible == true){
+        if(this.foodMenu.visible == true){
+            if(Phaser.Input.Keyboard.JustDown(key1)){
+                this.foodMenu.checkInventory(this.foodMenu.index);
+            }if(Phaser.Input.Keyboard.JustDown(key2)){
+                this.foodMenu.checkInventory(this.foodMenu.index+1);
+            }if(Phaser.Input.Keyboard.JustDown(key3)){
+                this.foodMenu.checkInventory(this.foodMenu.index+2);
+            }
+        }
+        if(this.toyMenu.visible == true){
             if(Phaser.Input.Keyboard.JustDown(keyLeft)){
-                if(this.shopMenu.list.length >= this.shopMenu.index +3){
-                    this.shopMenu.index +=3;
-                    console.log(this.shopMenu.index);
+                if(this.toyMenu.index-3 >= 0){
+                    this.toyMenu.index -=3;
+                    console.log(this.toyMenu.index);
                 }
             }
             if(Phaser.Input.Keyboard.JustDown(keyRight)){
+                if(this.toyMenu.list.length >= this.toyMenu.index +3){
+                    this.toyMenu.index +=3;
+                    console.log(this.toyMenu.index);
+                }
+            }if(Phaser.Input.Keyboard.JustDown(key1)){
+                this.toyMenu.checkInventory(this.toyMenu.index);
+            }if(Phaser.Input.Keyboard.JustDown(key2)){
+                this.toyMenu.checkInventory(this.toyMenu.index+1);
+            }if(Phaser.Input.Keyboard.JustDown(key3)){
+                this.toyMenu.checkInventory(this.toyMenu.index+2);
+            }
+        }
+        if(this.healthMenu.visible == true){
+            if(Phaser.Input.Keyboard.JustDown(key1)){
+                this.healthMenu.checkInventory(this.healthMenu.index);
+            }if(Phaser.Input.Keyboard.JustDown(key2)){
+                this.healthMenu.checkInventory(this.healthMenu.index+1);
+            }
+        }
+
+        if(this.shopMenu.visible == true){
+            if(Phaser.Input.Keyboard.JustDown(keyLeft)){
                 if(this.shopMenu.index-3 >= 0){
                     this.shopMenu.index -=3;
                     console.log(this.shopMenu.index);
                 }
+            }
+            if(Phaser.Input.Keyboard.JustDown(keyRight)){
+                if(this.shopMenu.list.length >= this.shopMenu.index +3){
+                    this.shopMenu.index +=3;
+                    console.log(this.shopMenu.index);
+                }
+            }if(Phaser.Input.Keyboard.JustDown(key1)){
+                this.shopMenu.checkInventory(this.shopMenu.index);
+            }if(Phaser.Input.Keyboard.JustDown(key2)){
+                this.shopMenu.checkInventory(this.shopMenu.index+1);
+            }if(Phaser.Input.Keyboard.JustDown(key3)){
+                this.shopMenu.checkInventory(this.shopMenu.index+2);
             }
         }
         // if(!this.gameOver){

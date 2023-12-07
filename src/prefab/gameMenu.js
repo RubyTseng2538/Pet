@@ -56,19 +56,7 @@ class gameMenu extends Phaser.GameObjects.Sprite{
         //     list = this.list;
         //     index = this.index;
         //     console.log(list, index);
-        //     if(list.length >= index){
-        //         if(this.name.text != 'Shop'){
-        //             if(list[index] >= 0){
-        //                 list[index] -= 1;
-        //             }else{
-        //                 console.log('not enough items')
-        //             }
-        //         }else{
-        //             list[index] += 1;
-        //         }
-        //     }else{
-        //         ;
-        //     }
+        //     
         // });
         // this.button2.on('pointerdown', function (pointer)
         // {
@@ -151,5 +139,21 @@ class gameMenu extends Phaser.GameObjects.Sprite{
         this.right.visible = false;
         this.name.visible = false;
     }
-    
+    checkInventory(index){
+        if(this.list.length > index){
+            let x = this.list[index];
+            if(this.name.text != 'Shop'){
+                if(this.list[index] >= 0){
+                    console.log('you used '+Object.keys(this.list)[index], this.list[index]);
+                }else{
+                    console.log('not enough items')
+                }
+            }else{
+                this.list[index] += 1;
+                console.log('you bought '+Object.keys(this.list)[index], this.list[index]);
+            }
+        }else{
+            ;
+        }
+    }
 };
