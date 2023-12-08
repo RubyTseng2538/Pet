@@ -1,2 +1,2 @@
-# ShrimpTails
-Endless runner game for artg/cmpm 120
+# Pet Game
+Game 3 for CMPM179
