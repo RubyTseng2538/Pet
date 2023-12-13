@@ -3,31 +3,17 @@ class Play extends Phaser.Scene{
         super("playScene");
     }
     preload(){
-        // this.load.image('bg', './assets/seabackground.png');
-        // this.load.image('shrimp', './assets/shrimp.png');
-        // this.load.image('fg', './assets/seaweed.png');
-        // this.load.image('fish', './assets/fish2.png');
-        // this.load.image('eel', './assets/eel.png');
-        // this.load.image('bag', './assets/plasticbag2.png');
-        // this.load.image('hook', './assets/hook2.png');
-        // // load animations
-        // this.load.spritesheet('shrimpswim', './assets/shrip.png',
-        //             {frameWidth: 100, frameHeight: 75, startFrame: 0, endFrame: 2});
-        // this.load.spritesheet('eelwiggle', './assets/eelanimated.png', 
-        //             {frameWidth: 128, frameHeight: 376, startFrame: 0, endFrame: 1});
-        // this.load.spritesheet('trashfloat', './assets/plasticbag.png', 
-        //             {frameWidth: 80, frameHeight: 89, startFrame: 0, endFrame: 1});
-        // this.load.spritesheet('hookup', './assets/hook.png', 
-        //             {frameWidth: 35, frameHeight: 250, startFrame: 0, endFrame: 1});
-        // this.load.spritesheet('fishswim', './assets/fish.png', 
-        //             {frameWidth: 180, frameHeight: 82, startFrame: 0, endFrame: 1});
-        // this.load.spritesheet('shrimpdie', './assets/shripdie.png', 
-        //             {frameWidth: 100, frameHeight: 75, startFrame: 0, endFrame: 7});
+        ;
     }
 
     create(){
         this.input.mouse.disableContextMenu();
         this.bg = this.add.tileSprite(0, 0, 1280, 720, 'bg').setOrigin(0, 0);
+
+        //add pet
+        this.pet = this.add.image(game.config.width/2+100, game.config.height/2+50, "defaultpet").setScale(2.5);
+
+        //add UI
         this.feed = this.add.image(1000, 650, 'circlebutton');
         this.play = this.add.image(1070, 650, 'circlebutton');
         this.shop = this.add.image(1140, 650, 'circlebutton');
@@ -39,7 +25,7 @@ class Play extends Phaser.Scene{
         this.coinbox = this.add.image(1200, 30, 'coinbox');
         this.foodMenu = new gameMenu(this, 0, 0, [food1, food2, food3]);
         this.toyMenu = new gameMenu(this, 0, 0, [toy1, toy2, toy3, toy4]);
-        this.shopMenu = new gameMenu(this, 0, 0, [food1, food2, food3, toy2, toy3, toy4, med1, med2]);
+        this.shopMenu = new gameMenu(this, 0, 0, [food1, food2, food3, toy2, toy3, toy4, med1]);
         this.healthMenu = new gameMenu(this, 0, 0, [med1, med2]);
         this.hideAllMenus();
         
@@ -54,18 +40,26 @@ class Play extends Phaser.Scene{
         key2 =  this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.TWO);
         key3 =  this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.THREE);
 
-        // this.fg = this.add.tileSprite(0, 0, 640, 480, 'fg').setOrigin(0, 0); // seaweed
-        // set up animations
-        // this.createAnimation();
+        //add item
+        this.dryfood = this.add.image(game.config.width/2-350, game.config.height/2 +120, 'dryfood').setScale(0.5);
+        this.dryfood2 = this.add.image(game.config.width/2, game.config.height/2 +120, 'dryfood').setScale(0.5);
+        this.wetfood = this.add.image(game.config.width/2+350, game.config.height/2 +120, 'wetfood').setScale(0.5);
+        this.hometoy = this.add.image(game.config.width/2-350, game.config.height/2 +120, 'hometoy').setScale(0.5);
+        this.tubetoy = this.add.image(game.config.width/2, game.config.height/2 +120, 'tubetoy').setScale(0.5);
+        this.bridgetoy = this.add.image(game.config.width/2+350, game.config.height/2 +120, 'bridgetoy').setScale(0.5);
+        this.cage = this.add.image(game.config.width/2-350, game.config.height/2 +120, 'cage').setScale(0.5);
+        this.med = this.add.image(game.config.width/2-350, game.config.height/2 +120, 'med').setScale(0.5);
+        this.vet = this.add.image(game.config.width/2, game.config.height/2 +120, 'vet').setScale(0.5);
 
-        // this.pShrimp = new Shrimp(this, game.config.width-borderPadding-borderUISize, game.config.height/2, 'shrimp').setOrigin(1, 0);
-        // this.rockObs = new Obstacle(this, 0, 100, 'fish').setOrigin(0, 0);
-        // this.eel = new Eel(this, -100, game.config.height, 'eel').setOrigin(0, 0);
-        // this.rod = new Rod(this, -200, -250, 'hook').setOrigin(0, 0);
-        // this.bag = new Bag(this, -300, 0, 'bag').setOrigin(0, 0);
+        this.foodArray = [this.dryfood, this.dryfood2, this.wetfood];
+        this.toyArray = [this.hometoy, this.tubetoy, this.bridgetoy, this.cage];
+        this.medArray = [this.med, this.vet];
+        this.shopArray = [this.dryfood, this.dryfood2, this.wetfood,  this.tubetoy, this.bridgetoy, this.cage, this.med];
         
-        // this.gameOver = false;
-        // this.speed = 0.5;
+
+        this.hideAllFood();
+
+
         this.money = 1000;
         // this.time = 0;
         // this.pause = 0;
@@ -102,39 +96,57 @@ class Play extends Phaser.Scene{
     update(){
         if(this.foodMenu.visible == true && Phaser.Input.Keyboard.JustDown(keyF)){
             this.hideAllMenus();
+            this.hideAllFood();
         }
         if(this.foodMenu.visible == false && Phaser.Input.Keyboard.JustDown(keyF)){
+            this.hideAllMenus();
+            this.hideAllFood();
             this.foodMenu.showMenu();
             this.foodMenu.visible = true;
             this.foodMenu.loadName("Feed");
             this.foodMenu.loadText("Feed");
+            this.showFood(this.foodArray);
         }
         if(this.toyMenu.visible == true && Phaser.Input.Keyboard.JustDown(keyP)){
             this.hideAllMenus();
+            this.hideAllFood();
         }
         if(this.toyMenu.visible == false && Phaser.Input.Keyboard.JustDown(keyP)){
+            this.hideAllMenus();
+            this.hideAllFood();
             this.toyMenu.showMenu();
             this.toyMenu.visible = true;
             this.toyMenu.loadName("Play");
             this.toyMenu.loadText("Play");
+            this.swapX(true);
+            this.showToy(this.toyArray, this.toyMenu.index);
         }
         if(this.shopMenu.visible == true && Phaser.Input.Keyboard.JustDown(keyS)){
             this.hideAllMenus();
+            this.hideAllFood();
         }
         if(this.shopMenu.visible == false && Phaser.Input.Keyboard.JustDown(keyS)){
+            this.hideAllMenus();
+            this.hideAllFood();
             this.shopMenu.showMenu();
             this.shopMenu.visible = true;
             this.shopMenu.loadName("Shop");
             this.shopMenu.loadText("Buy");
+            this.swapX(false);
+            this.showToy(this.shopArray, this.shopMenu.index);
         }
         if(this.healthMenu.visible == true && Phaser.Input.Keyboard.JustDown(keyH)){
             this.hideAllMenus();
+            this.hideAllFood();
         }
         if(this.healthMenu.visible == false && Phaser.Input.Keyboard.JustDown(keyH)){
+            this.hideAllMenus();
+            this.hideAllFood();
             this.healthMenu.showMenu();
             this.healthMenu.visible = true;
             this.healthMenu.loadName("Health");
             this.healthMenu.loadText("Cure");
+            this.showFood(this.medArray);
         }
         if(this.foodMenu.visible == true){
             if(Phaser.Input.Keyboard.JustDown(key1)){
@@ -149,13 +161,15 @@ class Play extends Phaser.Scene{
             if(Phaser.Input.Keyboard.JustDown(keyLeft)){
                 if(this.toyMenu.index-3 >= 0){
                     this.toyMenu.index -=3;
-                    console.log(this.toyMenu.index);
+                    this.hideAllFood();
+                    this.showToy(this.toyArray, this.toyMenu.index);
                 }
             }
             if(Phaser.Input.Keyboard.JustDown(keyRight)){
                 if(this.toyMenu.list.length >= this.toyMenu.index +3){
                     this.toyMenu.index +=3;
-                    console.log(this.toyMenu.index);
+                    this.hideAllFood();
+                    this.showToy(this.toyArray, this.toyMenu.index);
                 }
             }if(Phaser.Input.Keyboard.JustDown(key1)){
                 this.toyMenu.checkInventory(this.toyMenu.index);
@@ -177,13 +191,15 @@ class Play extends Phaser.Scene{
             if(Phaser.Input.Keyboard.JustDown(keyLeft)){
                 if(this.shopMenu.index-3 >= 0){
                     this.shopMenu.index -=3;
-                    console.log(this.shopMenu.index);
+                    this.hideAllFood();
+                    this.showToy(this.shopArray, this.shopMenu.index);
                 }
             }
             if(Phaser.Input.Keyboard.JustDown(keyRight)){
                 if(this.shopMenu.list.length >= this.shopMenu.index +3){
                     this.shopMenu.index +=3;
-                    console.log(this.shopMenu.index);
+                    this.hideAllFood();
+                    this.showToy(this.shopArray, this.shopMenu.index);
                 }
             }if(Phaser.Input.Keyboard.JustDown(key1)){
                 this.shopMenu.checkInventory(this.shopMenu.index);
@@ -235,78 +251,6 @@ class Play extends Phaser.Scene{
         // }
     }
 
-    checkCollision(shrimp, obs){
-        if(shrimp.x<obs.x+obs.width &&
-           shrimp.x + shrimp.width > obs.x &&
-           shrimp.y < obs.y + obs.height &&
-           shrimp.height + shrimp.y > obs.y){
-               return true;
-        }else{
-            return false;
-        }
-    }
-    checkAdj(shrimp, obs){
-        if(shrimp.x<obs.x+obs.width +50&&
-           shrimp.x + shrimp.width +50 > obs.x &&
-           shrimp.y < obs.y + obs.height +50&&
-           shrimp.height + shrimp.y +50> obs.y){
-               return true;
-        }else{
-            return false;
-        }
-    }
-    // just plays death animation at shrimp's location
-    shrimpDeath(shrimp) {
-        // temporarily hide shrimp
-        shrimp.alpha = 0;
-        // play death animation on location
-        let die = this.add.sprite(shrimp.x, shrimp.y, 'shrimpdie').setOrigin(0, 0); // create a sprite on location
-        die.anims.play('shrimpdeath'); // have sprite play the animation
-        die.on('animationcomplete', () => {
-            shrimp.reset();
-            shrimp.alpha = 1;
-            die.destroy();
-            this.gameOver = true;
-        });
-        
-    }
-    createAnimation(){
-        this.anims.create({
-            key: 'shrimpmove',
-            frames: this.anims.generateFrameNumbers('shrimpswim', {start: 0, end: 2, first: 0}),
-            frameRate: 4,
-            repeat: -1
-        });
-        this.anims.create({
-            key: 'eelmove',
-            frames: this.anims.generateFrameNumbers('eelwiggle', {start: 0, end: 1, first: 0}),
-            frameRate: 4,
-            repeat: -1
-        });
-        this.anims.create({
-            key: 'trashmove',
-            frames: this.anims.generateFrameNumbers('trashfloat', {start: 0, end: 1, first: 0}),
-            frameRate: 4,
-            repeat: -1
-        });
-        this.anims.create({
-            key: 'hookmove',
-            frames: this.anims.generateFrameNumbers('hookup', {start: 0, end: 1, first: 0}),
-            frameRate: 4,
-            repeat: -1
-        });
-        this.anims.create({
-            key: 'fishmove',
-            frames: this.anims.generateFrameNumbers('fishswim', {start: 0, end: 1, first: 0}),
-            frameRate: 4,
-            repeat: -1
-        });
-        this.anims.create({
-            key: 'shrimpdeath',
-            frames: this.anims.generateFrameNumbers('shrimpdie', {start: 0, end: 7, first: 0}),
-            frameRate: 9
-        });
-    }
     hideAllMenus(){
         this.foodMenu.hideMenu();
         this.foodMenu.visible = false;
@@ -316,5 +260,52 @@ class Play extends Phaser.Scene{
         this.shopMenu.visible = false;
         this.healthMenu.hideMenu();
         this.healthMenu.visible = false;
+    }
+
+    hideAllFood(){
+        for(let i = 0; i<this.foodArray.length;i++){
+            this.foodArray[i].visible = false;
+        }
+        // this.dryfood.visible = false; 
+        // this.dryfood2.visible = false; 
+        // this.wetfood.visible = false; 
+        this.hometoy.visible = false; 
+        this.tubetoy.visible = false; 
+        this.bridgetoy.visible = false; 
+        this.cage.visible = false; 
+        this.med.visible = false; 
+        this.vet.visible = false; 
+    }
+    showFood(array){
+        for(let i = 0; i<array.length; i++){
+            array[i].visible = true;
+        }
+    }
+
+    showToy(array, index){
+        if(index < array.length && index+3 < array.length){
+            for(let i = index; i<index+3;i++){
+                array[i].visible = true;
+            }
+        }else if(index < array.length && index+3 >= array.length){
+            for(let i=index; i< array.length; i++){
+                array[i].visible = true;
+            }
+        }else{
+            this.hideAllFood();
+        }
+    }
+
+    swapX(bool){
+        if(bool == true){
+            this.hometoy.x = game.config.width/2-350;
+            this.tubetoy.x = game.config.width/2;
+            this.bridgetoy.x = game.config.width/2+350;
+            this.cage.x = game.config.width/2-350;
+        }else{
+            this.tubetoy.x = game.config.width/2 -350;
+            this.bridgetoy.x = game.config.width/2;
+            this.cage.x = game.config.width/2+350;
+        }
     }
 }

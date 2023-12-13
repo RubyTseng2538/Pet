@@ -3,6 +3,7 @@ class Menu extends Phaser.Scene{
         super("menuScene");
     }
     preload(){
+        //UI
         this.load.image('bg', './assets/background.png');
         this.load.image('base', './assets/menubase.png');
         this.load.image('clickbox', './assets/clickbox.png');
@@ -11,6 +12,21 @@ class Menu extends Phaser.Scene{
         this.load.image('coinbox', './assets/coinbox.png');
         this.load.image('leftbutton', './assets/rightbutton.png');
         this.load.image('rightbutton', './assets/leftbutton.png');
+        //Pet
+        this.load.image('happypet', './assets/HappyPet.png');
+        this.load.image('hurtpet', './assets/HurtPet.png');
+        this.load.image('defaultpet', './assets/PetDefault.png');
+        this.load.image('sadpet', './assets/SadPet.png');
+        this.load.image('sickpet', './assets/Sickpet.png');
+        //Items
+        this.load.image('dryfood', './assets/BasicDryFood.png');
+        this.load.image('wetfood', './assets/WetFood.png');
+        this.load.image('hometoy', './assets/HomemadeToy.png');
+        this.load.image('tubetoy', './assets/LowBudgetTubeToy.png');
+        this.load.image('bridgetoy', './assets/SimpleBridgeToy.png');
+        this.load.image('cage', './assets/PrimeCage.png');
+        this.load.image('med', './assets/HomeMed.png');
+        this.load.image('vet', './assets/Vet.png');
     }
 
     create(){
