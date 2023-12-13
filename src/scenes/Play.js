@@ -55,6 +55,7 @@ class Play extends Phaser.Scene{
         this.toyArray = [this.hometoy, this.tubetoy, this.bridgetoy, this.cage];
         this.medArray = [this.med, this.vet];
         this.shopArray = [this.dryfood, this.dryfood2, this.wetfood,  this.tubetoy, this.bridgetoy, this.cage, this.med];
+        this.shopPriceArray = [50, 50, 100, 70, 120, 500, 200];
         
 
         this.hideAllFood();
@@ -184,6 +185,7 @@ class Play extends Phaser.Scene{
                 this.healthMenu.checkInventory(this.healthMenu.index);
             }if(Phaser.Input.Keyboard.JustDown(key2)){
                 this.healthMenu.checkInventory(this.healthMenu.index+1);
+                this.checkPrice(1000);
             }
         }
 
@@ -203,10 +205,13 @@ class Play extends Phaser.Scene{
                 }
             }if(Phaser.Input.Keyboard.JustDown(key1)){
                 this.shopMenu.checkInventory(this.shopMenu.index);
+                this.checkPrice(this.shopPriceArray[this.shopMenu.index]);
             }if(Phaser.Input.Keyboard.JustDown(key2)){
                 this.shopMenu.checkInventory(this.shopMenu.index+1);
+                this.checkPrice(this.shopPriceArray[this.shopMenu.index+1]);
             }if(Phaser.Input.Keyboard.JustDown(key3)){
                 this.shopMenu.checkInventory(this.shopMenu.index+2);
+                this.checkPrice(this.shopPriceArray[this.shopMenu.index+2]);
             }
         }
         // if(!this.gameOver){
@@ -306,6 +311,12 @@ class Play extends Phaser.Scene{
             this.tubetoy.x = game.config.width/2 -350;
             this.bridgetoy.x = game.config.width/2;
             this.cage.x = game.config.width/2+350;
+        }
+    }
+
+    checkPrice(price){
+        if(this.coin >= price){
+            this.coin -= price;
         }
     }
 }
