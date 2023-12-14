@@ -134,6 +134,9 @@ class Play extends Phaser.Scene{
             this.shopMenu.loadName("Shop");
             this.shopMenu.loadText("Buy");
             this.swapX(false);
+            this.shopMenu.loadPrice(this.shopPriceArray[this.shopMenu.index].toString(), 0);
+            this.shopMenu.loadPrice(this.shopPriceArray[this.shopMenu.index+1].toString(), 1);
+            this.shopMenu.loadPrice(this.shopPriceArray[this.shopMenu.index+2].toString(), 2);
             this.showToy(this.shopArray, this.shopMenu.index);
         }
         if(this.healthMenu.visible == true && Phaser.Input.Keyboard.JustDown(keyH)){
@@ -181,10 +184,12 @@ class Play extends Phaser.Scene{
             }
         }
         if(this.healthMenu.visible == true){
+            let num = 1000;
             if(Phaser.Input.Keyboard.JustDown(key1)){
                 this.healthMenu.checkInventory(this.healthMenu.index);
             }if(Phaser.Input.Keyboard.JustDown(key2)){
                 this.healthMenu.checkInventory(this.healthMenu.index+1);
+                this.healthMenu.loadPrice(num.toString(), 1);
                 this.checkPrice(1000);
             }
         }
@@ -194,6 +199,9 @@ class Play extends Phaser.Scene{
                 if(this.shopMenu.index-3 >= 0){
                     this.shopMenu.index -=3;
                     this.hideAllFood();
+                    this.shopMenu.loadPrice(this.shopPriceArray[this.shopMenu.index].toString(), 0);
+                    this.shopMenu.loadPrice(this.shopPriceArray[this.shopMenu.index+1].toString(), 1);
+                    this.shopMenu.loadPrice(this.shopPriceArray[this.shopMenu.index+2].toString(), 2);
                     this.showToy(this.shopArray, this.shopMenu.index);
                 }
             }
@@ -201,6 +209,9 @@ class Play extends Phaser.Scene{
                 if(this.shopMenu.list.length >= this.shopMenu.index +3){
                     this.shopMenu.index +=3;
                     this.hideAllFood();
+                    this.shopMenu.loadPrice(this.shopPriceArray[this.shopMenu.index].toString(), 0);
+                    this.shopMenu.loadPrice(this.shopPriceArray[this.shopMenu.index+1].toString(), 1);
+                    this.shopMenu.loadPrice(this.shopPriceArray[this.shopMenu.index+2].toString(), 2);
                     this.showToy(this.shopArray, this.shopMenu.index);
                 }
             }if(Phaser.Input.Keyboard.JustDown(key1)){
@@ -319,4 +330,5 @@ class Play extends Phaser.Scene{
             this.coin -= price;
         }
     }
+    // loadPrice2()
 }

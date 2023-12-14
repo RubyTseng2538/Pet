@@ -36,6 +36,8 @@ class gameMenu extends Phaser.GameObjects.Sprite{
         this.text1 = scene.add.text(game.config.width/2-400, game.config.height/2 +185, this.content, buttonConfig);
         this.text2 = scene.add.text(game.config.width/2-50, game.config.height/2 +185, this.content, buttonConfig);
         this.text3 = scene.add.text(game.config.width/2+300, game.config.height/2 +185, this.content, buttonConfig);
+        this.textArray = [this.text1, this.text2, this.text3];
+
         this.name = scene.make.text({
             x: game.config.width/2-540,
             y: game.config.height/2-40,
@@ -110,6 +112,11 @@ class gameMenu extends Phaser.GameObjects.Sprite{
         this.text2.text = this.content;
         this.text3.visible = true;
         this.text3.text = this.content;
+    }
+    loadPrice(string, number){
+        this.content = string;
+        this.textArray[number].text = this.content;
+        this.textArray[number].visible = true;
     }
     showMenu(){
         this.rect1.visible = true;
