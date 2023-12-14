@@ -26,7 +26,7 @@ let game = new Phaser.Game(config);
 
 let borderUISize = game.config.height/15;
 let borderPadding = borderUISize/3;
-let keyP, keyH, keyS, keyF, keyLeft, keyRight, key1, key2, key3;
+let keyP, keyH, keyS, keyF, keyLeft, keyRight, key1, key2, key3, keyE;
 let food1 = 0;
 let food2 = 0;
 let food3 = 0;

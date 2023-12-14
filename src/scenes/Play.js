@@ -18,10 +18,12 @@ class Play extends Phaser.Scene{
         this.play = this.add.image(1070, 650, 'circlebutton');
         this.shop = this.add.image(1140, 650, 'circlebutton');
         this.work = this.add.image(1210, 650, 'circlebutton');
+        this.endDay = this.add.image(50, 650, 'circlebutton');
         this.box1 = this.add.rectangle(1000, 682, 20, 25, 0xd7bc9f);
         this.box1 = this.add.rectangle(1070, 682, 20, 25, 0xd7bc9f);
         this.box1 = this.add.rectangle(1140, 682, 20, 25, 0xd7bc9f);
         this.box1 = this.add.rectangle(1210, 682, 20, 25, 0xd7bc9f);
+        this.box1 = this.add.rectangle(50, 682, 20, 25, 0xd7bc9f);
         this.coinbox = this.add.image(1200, 30, 'coinbox');
         this.foodMenu = new gameMenu(this, 0, 0, [food1, food2, food3]);
         this.toyMenu = new gameMenu(this, 0, 0, [toy1, toy2, toy3, toy4]);
@@ -34,6 +36,7 @@ class Play extends Phaser.Scene{
         keyP = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.P);
         keyS = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
         keyH = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.H);
+        keyE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.E);
         keyLeft = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT);
         keyRight= this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.RIGHT);
         key1 =  this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ONE);
@@ -81,8 +84,7 @@ class Play extends Phaser.Scene{
         this.hungerBar = new HealthBar(this, 0, 40, "Hunger:", this.petHungerNum);
 
         this.money = 1000;
-        // this.time = 0;
-        // this.pause = 0;
+        this.day = 1;
 
         let scoreConfig = {
             fontFamily: 'Georgia',
@@ -112,6 +114,13 @@ class Play extends Phaser.Scene{
         this.key1 = this.add.text(1020, 667, "P", letterConfig);
         this.key1 = this.add.text(1090, 667, "S", letterConfig);
         this.key1 = this.add.text(1160, 667, "H", letterConfig);
+        this.key1 = this.add.text(0, 667, "E", letterConfig);
+
+        this.word = this.add.text(950, 635, "Feed", letterConfig);
+        this.word = this.add.text(1020, 635, "Play", letterConfig);
+        this.word = this.add.text(1090, 635, "Shop", letterConfig);
+        this.word = this.add.text(1160, 635, "Cure", letterConfig);
+        this.word = this.add.text(0, 635, "End Day", letterConfig);
     }
     update(){
         if(this.foodMenu.visible == true && Phaser.Input.Keyboard.JustDown(keyF)){
@@ -253,6 +262,15 @@ class Play extends Phaser.Scene{
                 this.shopMenu.checkInventory(this.shopMenu.index+2);
                 this.checkPrice(this.shopPriceArray[this.shopMenu.index+2]);
             }
+
+            if(Phaser.Input.Keyboard.JustDown(keyE)){
+                this.day += 1; 
+            }
+
+            if(this.day == 7){
+                this.money += 1000;
+                this.coins.text = this.money;
+            }
         }
         // if(!this.gameOver){
         //     this.bg.tilePositionX -= this.speed;
@@ -360,7 +378,6 @@ class Play extends Phaser.Scene{
             this.coins.text = this.money;
         }
     }
-    // loadPrice2()
 
 
     useFood(foodType){
