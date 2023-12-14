@@ -326,8 +326,9 @@ class Play extends Phaser.Scene{
     }
 
     checkPrice(price){
-        if(this.coin >= price){
-            this.coin -= price;
+        if(this.money >= price){
+            this.money -= price;
+            this.coins.text = this.money;
         }
     }
     // loadPrice2()
