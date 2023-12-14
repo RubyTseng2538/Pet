@@ -85,6 +85,7 @@ class Play extends Phaser.Scene{
 
         this.money = 1000;
         this.day = 1;
+        this.pay = false;
 
         let scoreConfig = {
             fontFamily: 'Georgia',
@@ -262,15 +263,17 @@ class Play extends Phaser.Scene{
                 this.shopMenu.checkInventory(this.shopMenu.index+2);
                 this.checkPrice(this.shopPriceArray[this.shopMenu.index+2]);
             }
+        }
+        if(Phaser.Input.Keyboard.JustDown(keyE)){
+            this.day += 1;
+            console.log(this.day); 
+            this.pay = false;
+        }
 
-            if(Phaser.Input.Keyboard.JustDown(keyE)){
-                this.day += 1; 
-            }
-
-            if(this.day == 7){
-                this.money += 1000;
-                this.coins.text = this.money;
-            }
+        if(this.day % 7 == 0 && this.pay == false){
+            this.money += 1000;
+            this.coins.text = this.money;
+            this.pay = true;
         }
         // if(!this.gameOver){
         //     this.bg.tilePositionX -= this.speed;
