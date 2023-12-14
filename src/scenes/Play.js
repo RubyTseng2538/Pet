@@ -75,13 +75,21 @@ class Play extends Phaser.Scene{
         this.petSicknessStatus = 0; // healthy, injured, sick
         this.food1safety = 0;
         this.food2safety = 0;
+        this.randomizeFoodSafety();
+
         this.petfed = [0, 0, 0];
 
+        
+
         this.healthBar = new HealthBar(this, 0, 0, "Health:", this.petHealthNum);
-
         this.happyBar = new HealthBar(this, 0, 20, "Happiness:", this.petHappinessNum);
+        this.hungerBar = new HealthBar(this, 0, 40, "Belly:", this.petHungerNum);
 
-        this.hungerBar = new HealthBar(this, 0, 40, "Hunger:", this.petHungerNum);
+
+
+        //this.healthBar.draw();
+        //this.happyBar.draw();
+        //this.hungerBar.draw();
 
         this.money = 1000;
         this.day = 1;
@@ -124,6 +132,9 @@ class Play extends Phaser.Scene{
         this.word = this.add.text(0, 635, "End Day", letterConfig);
     }
     update(){
+        this.healthBar.draw();
+        this.happyBar.draw();
+        this.hungerBar.draw();
         if(this.foodMenu.visible == true && Phaser.Input.Keyboard.JustDown(keyF)){
             this.hideAllMenus();
             this.hideAllFood();
@@ -268,6 +279,7 @@ class Play extends Phaser.Scene{
             this.day += 1;
             console.log(this.day); 
             this.pay = false;
+            this.doEndOfDay;
         }
 
         if(this.day % 7 == 0 && this.pay == false){
@@ -382,6 +394,35 @@ class Play extends Phaser.Scene{
         }
     }
 
+    randomizeFoodSafety(){
+        let i = 0;
+        i = Math.random() * 2;
+        i = Math.floor(i);
+        let j = Math.random() + 1;
+        if(i == 1) this.food2safety += j;
+        else this.food1safety += j;
+    }
+
+    doEndOfDay(){
+        this.petHungerNum = this.petHungerNum * 7 / 10;
+        this.petHungerNum -= 20;
+        this.feedType1(this.pefed[0]);
+        this.feedType2(this.petfed[1]);
+        this.feedType3(this.petfed[2]);
+        this.petfed = [0, 0, 0];
+
+
+
+    }
+    feedType1(times){
+
+    }
+    feedType2(times){
+
+    }
+    feedType3(times){
+
+    }
 
     useFood(foodType){
         console.log("food usage successful");
