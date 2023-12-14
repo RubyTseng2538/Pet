@@ -412,6 +412,23 @@ class Play extends Phaser.Scene{
         this.petfed = [0, 0, 0];
         if(this.petHungerNum > 100) this.petHungerNum = 100;
         if(this.petHungerNum < 0) this.petHungerNum = 0;
+        if(this.petSicknessStatus == 0){
+            let k = this.petHealthNum;
+            k = k / 10;
+            this.petHealthNum += k;
+
+        }
+  
+        let k = Math.random();
+        k = k * 50;
+        if (k > this.petHungerNum){
+            this.petHealthNum -= 30;
+        }
+        
+
+        if(this.petHealthNum > 100) this.petHealthNum = 100;
+        if(this.petHealthNum < 0) this.petHealthNum = 0;
+        
 
 
 
