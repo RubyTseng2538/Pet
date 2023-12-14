@@ -50,15 +50,29 @@ class Play extends Phaser.Scene{
         this.cage = this.add.image(game.config.width/2-350, game.config.height/2 +120, 'cage').setScale(0.5);
         this.med = this.add.image(game.config.width/2-350, game.config.height/2 +120, 'med').setScale(0.5);
         this.vet = this.add.image(game.config.width/2, game.config.height/2 +120, 'vet').setScale(0.5);
+        this.dummy = this.add.image(game.config.width/2-350, game.config.height/2 +120, 'circlebutton').setScale(0.5);
+        this.dummy.visible = false;
 
         this.foodArray = [this.dryfood, this.dryfood2, this.wetfood];
         this.toyArray = [this.hometoy, this.tubetoy, this.bridgetoy, this.cage];
         this.medArray = [this.med, this.vet];
-        this.shopArray = [this.dryfood, this.dryfood2, this.wetfood,  this.tubetoy, this.bridgetoy, this.cage, this.med];
-        this.shopPriceArray = [50, 50, 100, 70, 120, 500, 200];
+        this.shopArray = [this.dryfood, this.dryfood2, this.wetfood,  this.tubetoy, this.bridgetoy, this.cage, this.med, this.dummy, this.dummy];
+        this.shopPriceArray = [50, 50, 100, 70, 120, 500, 200, 0, 0];
         
 
         this.hideAllFood();
+
+
+
+        //gvars
+
+        this.petHungerNum = 100;
+        this.petHealthNum = 100;
+        this.petHappinessNum = 50;
+        this.petSicknessStatus = 0; // healthy, injured, sick
+        this.food1safety = 0;
+        this.food2safety = 0;
+        this.petfed = [0, 0, 0];
 
 
         this.money = 1000;
@@ -196,23 +210,33 @@ class Play extends Phaser.Scene{
 
         if(this.shopMenu.visible == true){
             if(Phaser.Input.Keyboard.JustDown(keyLeft)){
-                if(this.shopMenu.index-3 >= 0){
-                    this.shopMenu.index -=3;
-                    this.hideAllFood();
-                    this.shopMenu.loadPrice(this.shopPriceArray[this.shopMenu.index].toString(), 0);
-                    this.shopMenu.loadPrice(this.shopPriceArray[this.shopMenu.index+1].toString(), 1);
-                    this.shopMenu.loadPrice(this.shopPriceArray[this.shopMenu.index+2].toString(), 2);
-                    this.showToy(this.shopArray, this.shopMenu.index);
+                for(let k = 0; k < 1; k++){
+                    if(this.shopMenu.index > 0){
+                        this.shopMenu.index -=3;
+                        this.hideAllFood();
+                        this.shopMenu.loadPrice(this.shopPriceArray[this.shopMenu.index].toString(), 0);
+                        this.shopMenu.loadPrice(this.shopPriceArray[this.shopMenu.index+1].toString(), 1);
+                        this.shopMenu.loadPrice(this.shopPriceArray[this.shopMenu.index+2].toString(), 2);
+                        for(var j = 0; j < 3; j++){
+                            this.showToy(this.shopArray, this.shopMenu.index);
+                        }
+                    }
                 }
             }
             if(Phaser.Input.Keyboard.JustDown(keyRight)){
-                if(this.shopMenu.list.length >= this.shopMenu.index +3){
-                    this.shopMenu.index +=3;
-                    this.hideAllFood();
-                    this.shopMenu.loadPrice(this.shopPriceArray[this.shopMenu.index].toString(), 0);
-                    this.shopMenu.loadPrice(this.shopPriceArray[this.shopMenu.index+1].toString(), 1);
-                    this.shopMenu.loadPrice(this.shopPriceArray[this.shopMenu.index+2].toString(), 2);
-                    this.showToy(this.shopArray, this.shopMenu.index);
+                for(let k = 0; k < 1; k++){
+                    if(this.shopMenu.list.length >= this.shopMenu.index + 6){
+                        this.shopMenu.index += 3;
+                        this.hideAllFood();
+                        this.shopMenu.loadPrice(this.shopPriceArray[this.shopMenu.index].toString(), 0);
+                        this.shopMenu.loadPrice(this.shopPriceArray[this.shopMenu.index+1].toString(), 1);
+                        this.shopMenu.loadPrice(this.shopPriceArray[this.shopMenu.index+2].toString(), 2);
+                        for(let j = 0; j < 3; j++){
+                            this.showToy(this.shopArray, this.shopMenu.index);
+
+                        }
+                    }
+
                 }
             }if(Phaser.Input.Keyboard.JustDown(key1)){
                 this.shopMenu.checkInventory(this.shopMenu.index);
@@ -332,4 +356,17 @@ class Play extends Phaser.Scene{
         }
     }
     // loadPrice2()
+
+
+    useFood(foodType){
+        console.log("food usage successful");
+        this.petfed[foodType] += 1;
+    }
+
+    useToy(type){
+
+    }
+    useMedicine(type){
+
+    }
 }

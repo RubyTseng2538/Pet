@@ -146,17 +146,36 @@ class gameMenu extends Phaser.GameObjects.Sprite{
         this.right.visible = false;
         this.name.visible = false;
     }
+    addItem(index){
+        this.list[index] = this.list[index] + 1;
+    }
     checkInventory(index){
         if(this.list.length > index){
             let x = this.list[index];
             if(this.name.text != 'Shop'){
-                if(this.list[index] >= 0){
+                if(this.list[index] > 0){
                     console.log('you used '+Object.keys(this.list)[index], this.list[index]);
+                    this.list[index] -= 1;
+                    switch(this.name.text){
+                        case 'Feed':
+                            this.scene.useFood(index);
+                            break;
+                        case '':
+                            this.scene.useToy(index);
+                            break;
+                        default:
+                            break;
+                    }
                 }else{
                     console.log('not enough items')
                 }
             }else{
-                this.list[index] += 1;
+                if(index < 3){
+                    //Play.foodMenu.addItem(index);
+                    this.scene.foodMenu.list[index] += 1;
+                }else{
+                    this.scene.toyMenu.list[index - 3] = this.scene.toyMenu.list[index - 3] + 1;
+                }
                 console.log('you bought '+Object.keys(this.list)[index], this.list[index]);
             }
         }else{
