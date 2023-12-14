@@ -74,6 +74,11 @@ class Play extends Phaser.Scene{
         this.food2safety = 0;
         this.petfed = [0, 0, 0];
 
+        this.healthBar = new HealthBar(this, 0, 0, "Health:", this.petHealthNum);
+
+        this.happyBar = new HealthBar(this, 0, 20, "Happiness:", this.petHappinessNum);
+
+        this.hungerBar = new HealthBar(this, 0, 40, "Hunger:", this.petHungerNum);
 
         this.money = 1000;
         // this.time = 0;

@@ -1,15 +1,28 @@
 class HealthBar {
 
-    constructor (scene, x, y)
+    constructor (scene, x, y, text, value)
     {
         this.bar = new Phaser.GameObjects.Graphics(scene);
-
-        this.x = x;
+        this.content = text;
+        this.x = x+110;
         this.y = y;
-        this.value = 100;
-        this.p = 100 / 100;
+        let buttonConfig= {
+            fontFamily: 'Georgia',
+            fontSize: '20px',
+            color: '#000000',
+            align: 'left',
+            padding: { 
+                bottom: 5,
+            },
+            fixedWidth: 100
+        }
+        this.text = scene.add.text(x, y, this.content, buttonConfig);
+        this.startvalue = value;
+        this.value = value;
+        this.p = value / value;
 
         this.draw();
+        this.hp  = scene.add.text(x+225, y, this.value.toString(), buttonConfig);
 
         scene.add.existing(this.bar);
     }
@@ -24,6 +37,7 @@ class HealthBar {
         }
 
         this.draw();
+        this.hp.text = this.value.toString();
 
         return (this.value === 0);
     }
@@ -34,21 +48,15 @@ class HealthBar {
 
         //  BG
         this.bar.fillStyle(0x000000);
-        this.bar.fillRect(this.x, this.y, 105, 20);
+        this.bar.fillRect(this.x, this.y, this.startvalue+5, 20);
 
         //  Health
 
         this.bar.fillStyle(0xffffff);
-        this.bar.fillRect(this.x + 2, this.y + 2, 100, 16);
+        this.bar.fillRect(this.x + 2, this.y + 2, this.startvalue, 16);
 
-        if (this.value < 30)
-        {
-            this.bar.fillStyle(0xff0000);
-        }
-        else
-        {
-            this.bar.fillStyle(0x00ff00);
-        }
+
+        this.bar.fillStyle(0x00ff00);
 
         var d = Math.floor(this.p * this.value);
 
