@@ -2,6 +2,7 @@ class HealthBar {
 
     constructor (scene, x, y, text, value)
     {
+        this.scene = scene;
         this.bar = new Phaser.GameObjects.Graphics(scene);
         this.content = text;
         this.x = x+110;
@@ -21,7 +22,7 @@ class HealthBar {
         this.value = value;
         this.p = value / value;
 
-        this.draw();
+        //this.draw();
         this.hp  = scene.add.text(x+225, y, this.value.toString(), buttonConfig);
 
         scene.add.existing(this.bar);
@@ -55,14 +56,29 @@ class HealthBar {
     {
         this.bar.clear();
 
+        switch(this.content){
+            case "Health:":
+                this.value = this.scene.petHealthNum;
+                break;
+            case "Happiness:":
+                this.value = this.scene.petHappinessNum;
+                break;
+            case "Belly:":
+                this.value = this.scene.petHungerNum;
+                break;
+            default:
+                break;
+            
+        }
+
         //  BG
         this.bar.fillStyle(0x000000);
-        this.bar.fillRect(this.x, this.y, this.startvalue+5, 20);
+        this.bar.fillRect(this.x, this.y, 105, 20);
 
         //  Health
 
         this.bar.fillStyle(0xffffff);
-        this.bar.fillRect(this.x + 2, this.y + 2, this.startvalue, 16);
+        this.bar.fillRect(this.x + 2, this.y + 2, 100, 16);
 
 
         this.bar.fillStyle(0x00ff00);
