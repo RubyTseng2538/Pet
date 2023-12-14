@@ -279,7 +279,7 @@ class Play extends Phaser.Scene{
             this.day += 1;
             console.log(this.day); 
             this.pay = false;
-            this.doEndOfDay;
+            this.doEndOfDay();
         }
 
         if(this.day % 7 == 0 && this.pay == false){
@@ -406,21 +406,60 @@ class Play extends Phaser.Scene{
     doEndOfDay(){
         this.petHungerNum = this.petHungerNum * 7 / 10;
         this.petHungerNum -= 20;
-        this.feedType1(this.pefed[0]);
+        this.feedType1(this.petfed[0]);
         this.feedType2(this.petfed[1]);
         this.feedType3(this.petfed[2]);
         this.petfed = [0, 0, 0];
+        if(this.petHungerNum > 100) this.petHungerNum = 100;
+        if(this.petHungerNum < 0) this.petHungerNum = 0;
 
 
 
     }
     feedType1(times){
+        for(let i = 0; i < times; i++){
+            if(this.petHungerNum >= 100){
+                this.petHungerNum = 100;
+                break;
+            }
+            let j = this.petHungerNum;
+            j = j * 3 / 5;
+            this.petHungerNum += 50;
+            this.petHungerNum -= j;
+            let k = Math.random();
+            k = k * 10
+            if(this.food1safety > k) this.petSicknessStatus = 2;
+        }
+
 
     }
     feedType2(times){
+        for(let i = 0; i < times; i++){
+            if(this.petHungerNum >= 100){
+                this.petHungerNum = 100;
+                break;
+            }
+            let j = this.petHungerNum;
+            j = j * 3 / 5;
+            this.petHungerNum += 50;
+            this.petHungerNum -= j;
+            let k = Math.random();
+            k = k * 10
+            if(this.food2safety > k) this.petSicknessStatus = 2;
+        }
 
     }
     feedType3(times){
+        for(let i = 0; i < times; i++){
+            if(this.petHungerNum >= 100){
+                this.petHungerNum = 100;
+                break;
+            }
+            let j = this.petHungerNum;
+            j = j * 1 / 5;
+            this.petHungerNum += 30;
+            this.petHungerNum -= j;
+        }
 
     }
 
