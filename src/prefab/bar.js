@@ -41,6 +41,15 @@ class HealthBar {
 
         return (this.value === 0);
     }
+    increase(amount){
+        this.value += amount;
+        if(this.value >= this.startvalue){
+            this.value = this.startvalue;
+        }
+        this.draw();
+        this.hp.text = this.value.toString();
+        return (this.value === this.startvalue);
+    }
 
     draw ()
     {
