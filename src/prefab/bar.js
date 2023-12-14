@@ -23,7 +23,7 @@ class HealthBar {
         this.p = value / value;
 
         //this.draw();
-        this.hp  = scene.add.text(x+225, y, this.value.toString(), buttonConfig);
+        //this.hp  = scene.add.text(x+225, y, this.value.toString(), buttonConfig);
 
         scene.add.existing(this.bar);
     }
