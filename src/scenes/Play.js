@@ -184,12 +184,14 @@ class Play extends Phaser.Scene{
             this.hideAllFood();
         }
         if(this.healthMenu.visible == false && Phaser.Input.Keyboard.JustDown(keyH)){
+            this.num = 1000;
             this.hideAllMenus();
             this.hideAllFood();
             this.healthMenu.showMenu();
             this.healthMenu.visible = true;
             this.healthMenu.loadName("Health");
             this.healthMenu.loadText("Cure");
+            this.healthMenu.loadPrice(this.num.toString(), 1);
             this.showFood(this.medArray);
         }
         if(this.foodMenu.visible == true){
